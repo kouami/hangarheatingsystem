@@ -6,8 +6,8 @@ class MyDB extends SQLite3
 {
     function __construct()
     {
-        //$this->open('/home/pi/db/capheat.db');
-        $this->open('db/capheat.db');
+        $this->open('/home/pi/db/capheat.db');
+        //$this->open('db/capheat.db'); For testing purpose
     }
 }
 
@@ -71,9 +71,6 @@ $downstairsData = $downstairsData . "]";
 $upstairsData = substr($upstairsData, 0, -1);
 $upstairsData = $upstairsData . "]";
 
-
-//echo json_encode(array("downstairsData" => $downstairsData, "upstairsData" => $upstairsData, "fanData" => $fanData, "heatData" => $heatData, "eheatData" => $eheatData ));
-//echo json_encode(array("downstairsData" => $downstairsData, "upstairsData" => $upstairsData, "fanData" => $fanData, "heatData" => $heatData));
 
 $data = array('downstairsData' => $downstairsData, 'upstairsData' => $upstairsData, 'fanData' => $fanData, 'heatData' => $heatData, "eheatData" => $eheatData);
 echo json_encode($data);

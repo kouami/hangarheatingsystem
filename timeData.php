@@ -3,15 +3,15 @@ class MyDB extends SQLite3
 {
     function __construct()
     {
-        //$this->open('/home/pi/db/capheat.db');
-        $this->open('db/capheat.db');
+        $this->open('/home/pi/db/capheat.db');
+        //$this->open('db/capheat.db'); For testing purpose.
     }
 }
 
 $db = new MyDB();
 
 $data = array();
-$result = $db -> query('select * from main.time');
+$result = $db -> query('select * from time');
 
 while ($val = $result->fetchArray()) {
 
