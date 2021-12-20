@@ -198,10 +198,12 @@ session_start();
                 $.ajax({
                     url: "tempHumidityData.php",
                     async: false,
-                    success: function (response) {
-                        const fanData = response.fanData;
-                        const heatData = response.heatData;
-                        const eheatData = response.eheatData;
+                    success: function (data) {
+
+                        data = $.parseJSON(data);
+                        const fanData = data.fanData;
+                        const heatData = data.heatData;
+                        const eheatData = data.eheatData;
 
                         if (fanData === 1) {
 
