@@ -1,16 +1,19 @@
 
 <?php
-
+include 'profile.php';
 class MyDB extends SQLite3
 {
-    function __construct()
+    function __construct($profile)
     {
-        $this->open('/home/pi/db/capheat.db');
-        //$this->open('db/capheat.db'); //For testing purpose
+        if ($profile == "PROD") {
+            $this->open('/home/pi/db/capheat.db');
+        } else {
+            $this->open('db/capheat.db'); //For testing purpose
+        }
     }
 }
 
-$db = new MyDB();
+$db = new MyDB($profile);
 
 $data = array();
 $result = $db->query('SELECT * FROM temperatur LIMIT 240 OFFSET (SELECT COUNT(*) FROM temperatur)-240');

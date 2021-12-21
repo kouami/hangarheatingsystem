@@ -1,12 +1,18 @@
 <?php 
 session_start();
+include 'profile.php';
 
 if(isset($_POST["username"]) && isset($_POST["password"])) {
  
  $username = $_POST["username"];
  $password = $_POST["password"];
 
-$file = fopen('/home/pi/credentials.txt', "r");
+ $file = NULL;
+    if($profile == "PROD") {
+        $file = fopen('/home/pi/credentials.txt', "r");
+    } else {
+        $file = fopen('credentials.txt', "r");
+    }
    $credentials = array();
    
    $index = 0;

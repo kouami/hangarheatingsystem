@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include 'profile.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -164,7 +164,7 @@ session_start();
         <div class="col-sm-12">
             <h3>Upstairs Temperature and Humidity</h3>
 
-            <div id="myGraph2"></div>
+            <div id="myGraph2" style="border:1px solid black; width:603px;"></div>
 
         </div>
     </div> <!-- end of first class row -->
@@ -175,7 +175,7 @@ session_start();
             <h3>Downstairs Temperature and Humidity</h3>
 
             <div id="testdisplay"></div>
-            <div id="myGraph"></div>
+            <div id="myGraph" style="border:1px solid black; width:603px;"></div>
 
         </div>
 
@@ -185,8 +185,8 @@ session_start();
     <div class="row">
 
         <div class=" col">
-
-            <div style="background:#f1f8e9; width:600px;">
+            <br/>
+            <div style="background:#f1f8e9; border:1px solid black; width:603px;">
 
 
                 <h4>
@@ -210,9 +210,12 @@ session_start();
 
 
             <?php
-
-            //$myfile = fopen("/home/pi/temp/data.txt", "r") or die("Unable to open file!");
-            $myfile = fopen("data.txt", "r") or die("Unable to open file!"); //for testing purpose
+            $myfile;
+            if($profile == "PROD") {
+                $myfile = fopen("/home/pi/temp/data.txt", "r") or die("Unable to open file!");
+            } else {
+                $myfile = fopen("data.txt", "r") or die("Unable to open file!"); //for testing purpose
+            }
 
             $string = fgets($myfile);
             fclose($myfile);
@@ -320,7 +323,9 @@ session_start();
 
 </div> <!-- class container -->
 
-
+<?php
+//print "The profile is : " .  $GLOBALS['profile'];
+?>
 </body>
 </html>
 
