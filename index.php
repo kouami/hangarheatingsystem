@@ -20,6 +20,7 @@ session_start();
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
     <script src="js/jQuery.switchButton.js"></script>
+    <script src="js/utils.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
@@ -70,237 +71,13 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script type="text/javascript">
-
-
-        google.charts.load('current', {packages: ['corechart', 'line']});
-        google.charts.setOnLoadCallback(drawLineColorsD);
-
-        function drawLineColorsD() {
-
-            $.ajax({
-                url: "tempHumidityData.php",
-                async: false,
-                type: "GET",
-                success: function (data, status, xhr) {
-
-                    data = $.parseJSON(data);
-
-                    const downstairsData = data.downstairsData;
-
-                    //$("#testdisplay").html(data);
-
-
-                    const responseData = new google.visualization.DataTable(downstairsData);
-                    responseData.addColumn('number', 'X');
-                    responseData.addColumn('number', 'Temperature');
-                    responseData.addColumn('number', 'Humidity');
-                    responseData.addRows(JSON.parse(downstairsData));
-
-                    const options = {
-                        hAxis: {
-                            title: 'Time'
-                        },
-                        vAxis: {
-                            title: 'Temp/Humidity'
-                        },
-                        min: 0,
-                        max: 50,
-                        smoothLine: true,
-                        width: 600,
-                        height: 240,
-                        backgroundColor: '#f1f8e9',
-                        colors: ['#a52714', '#097138'],
-                        chartArea: {left: 50, top: 30, width: "70%", height: "70%"}
-                    };
-
-
-                    const chart = new google.visualization.LineChart(document.getElementById('myGraph'));
-                    chart.draw(responseData, options)
-                },
-                error: function (data) {
-                    alert(data.responseText);
-                }
-            });
-
-        }
-    </script>
-
-    <script type="text/javascript">
-
-
-        google.charts.load('current', {packages: ['corechart', 'line']});
-        google.charts.setOnLoadCallback(drawLineColorsU);
-
-        function drawLineColorsU() {
-
-            $.ajax({
-                type: "POST",
-                url: "tempHumidityData.php",
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-
-                    data = $.parseJSON(data);
-
-                    const upstairsData = data.upstairsData;
-
-                    //$("#testdisplay").html(data);
-
-                    const responseData = new google.visualization.DataTable(upstairsData);
-                    responseData.addColumn('number', 'X');
-                    responseData.addColumn('number', 'Temperature');
-                    responseData.addColumn('number', 'Humidity');
-                    responseData.addRows(JSON.parse(upstairsData));
-
-                    const options = {
-                        hAxis: {
-                            title: 'Time'
-                        },
-                        vAxis: {
-                            title: 'Temp/Humidity'
-                        },
-                        min: 0,
-                        max: 50,
-                        smoothLine: true,
-                        width: 600,
-                        height: 240,
-                        backgroundColor: '#f1f8e9',
-                        colors: ['#a52714', '#097138'],
-                        chartArea: {left: 50, top: 30, width: "70%", height: "70%"}
-                    };
-
-
-                    const chart = new google.visualization.LineChart(document.getElementById('myGraph2'));
-
-                    chart.draw(responseData, options);
-                },
-                error: function (response) {
-                    //var err = eval("(" + response.responseText + ")");
-                    //alert(response.responseText);
-                }
-            });
-
-        }
-    </script>
-    <script type="text/javascript">
         $(document).ready(function () {
-            drawLineColorsU();
-            drawLineColorsD();
-            setInterval(drawLineColorsU, 360000); //redraw every 6 minutes without refreshing the page
-            setInterval(drawLineColorsD, 360000); //redraw every 6 minutes without refreshing the page
-        });
-    </script>
-    <script type="text/javascript">
-
-        $(document).ready(
-            function setFanAndHeat() {
-
-                $.ajax({
-                    url: "tempHumidityData.php",
-                    async: false,
-                    success: function (data) {
-
-                        data = $.parseJSON(data);
-                        const fanData = data.fanData;
-                        const heatData = data.heatData;
-                        const eheatData = data.eheatData;
-
-                        if (fanData === 1) {
-
-                            //$('#fan').prop('checked', true);
-                            $('#fanStuff').append('<img src="images/running_fan.gif" width="90" height="90">');
-
-                        } else {
-
-                            //$('#fan').prop('checked', false);
-                            $('#fanStuff').append('<img src="images/not_running_fan.png" width="90" height="90">');
-
-                        }
-
-                        if (heatData === 1) {
-
-                            //$('#heat').prop('checked', true);
-                            $('#heatStuff').append('<img src="images/burning_flames.gif" width="90" height="90">');
-
-                        } else {
-
-                            //$('#heat').prop('checked', false);
-                            $('#heatStuff').append('<img src="images/heater_no_heat.png" width="90" height="90">');
-
-                        }
-
-                        if (eheatData === 1) {
-
-                            //$('#eheat').prop('checked', true);
-                            $('#eheatStuff').append('<img src="images/eheat_on.png" width="90" height="90">');
-
-                        } else {
-
-                            //$('#eheat').prop('checked', false);
-                            $('#eheatStuff').append('<img src="images/eheat_cold.png" width="90" height="90">');
-
-                        }
-
-                        //$('#fan').attr('disabled', true);
-                        //$('#heat').attr('disabled', true);
-                        //$('#eheat').attr('disabled', true);
-                    }
-                });
-            });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $.ajax({
-                url: "timeData.php",
-                dataType: "json",
-                async: false,
-                success: function (data) {
-
-                    $("#startTime").html(data.startTime);
-                    $("#endTime").html(data.endTime);
-                    $("#user").html(data.user);
-
-                }
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#login_button').click(function () {
-                const username = $('#username').val();
-                const password = $('#password').val();
-                if (username != '' && password != '') {
-                    $.ajax({
-                        url: "login_action.php",
-                        method: "POST",
-                        data: {username: username, password: password},
-                        success: function (data) {
-
-                            if (data === "NO") {
-                                alert("Invalid Credentials");
-                            } else {
-                                $('#loginModal').hide();
-                                //location.reload();
-                                setTimeout('window.location.href = "settings.php";', 1000);
-                            }
-                        }
-                    });
-                } else {
-                    alert("Both Fields are required");
-                }
-            });
-            $('#logout').click(function () {
-                const action = "logout";
-                $.ajax({
-                    url: "login_action.php",
-                    method: "POST",
-                    data: {action: action},
-                    success: function () {
-                        location.reload();
-                    }
-                });
-            });
+            google.charts.load('current', {packages: ['corechart', 'line']});
+            google.charts.setOnLoadCallback(drawLineGraphs);
+            drawLineGraphs();
+            setInterval(drawLineGraphs, 360000); //redraw every 6 minutes without refreshing the page
+            processTimeData()
+            processLogin();
         });
     </script>
 
@@ -434,8 +211,8 @@ session_start();
 
             <?php
 
-            $myfile = fopen("/home/pi/temp/data.txt", "r") or die("Unable to open file!");
-            //$myfile = fopen("data.txt", "r") or die("Unable to open file!"); for testing purpose
+            //$myfile = fopen("/home/pi/temp/data.txt", "r") or die("Unable to open file!");
+            $myfile = fopen("data.txt", "r") or die("Unable to open file!"); //for testing purpose
 
             $string = fgets($myfile);
             fclose($myfile);

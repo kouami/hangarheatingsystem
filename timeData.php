@@ -4,7 +4,7 @@ class MyDB extends SQLite3
     function __construct()
     {
         $this->open('/home/pi/db/capheat.db');
-        //$this->open('db/capheat.db'); For testing purpose.
+        //$this->open('db/capheat.db'); //For testing purpose.
     }
 }
 
