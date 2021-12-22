@@ -1,3 +1,5 @@
+var mainData = "";
+
 function drawLineGraphs() {
 
     const options = {
@@ -25,6 +27,7 @@ function drawLineGraphs() {
         success: function (data, status, xhr) {
 
             data = $.parseJSON(data);
+            mainData = data;
 
             <!-- Load and draw Downstairs data -->
 
@@ -52,40 +55,74 @@ function drawLineGraphs() {
             const chartU = new google.visualization.LineChart(document.getElementById('myGraph2'));
             chartU.draw(responseDataU, options);
 
-            const fanData = data.fanData;
+            /*const fanData = data.fanData;
             const heatData = data.heatData;
             const eheatData = data.eheatData;
 
             if (fanData === 1) {
                 //$('#fan').prop('checked', true);
-                $('#fanStuff').append('<img src="images/running_fan.gif" width="90" height="90">');
+                $('#fanStuff').html('<img src="images/running_fan.gif" width="90" height="90">');
 
             } else {
                 //$('#fan').prop('checked', false);
-                $('#fanStuff').append('<img src="images/not_running_fan.png" width="90" height="90">');
+                $('#fanStuff').html('<img src="images/not_running_fan.png" width="90" height="90">');
             }
 
             if (heatData === 1) {
                 //$('#heat').prop('checked', true);
-                $('#heatStuff').append('<img src="images/burning_flames.gif" width="90" height="90">');
+                $('#heatStuff').html('<img src="images/burning_flames.gif" width="90" height="90">');
             } else {
                 //$('#heat').prop('checked', false);
-                $('#heatStuff').append('<img src="images/heater_no_heat.png" width="90" height="90">');
+                $('#heatStuff').html('<img src="images/heater_no_heat.png" width="90" height="90">');
             }
 
             if (eheatData === 1) {
                 //$('#eheat').prop('checked', true);
-                $('#eheatStuff').append('<img src="images/eheat_on.png" width="90" height="90">');
+                $('#eheatStuff').html('<img src="images/eheat_on.png" width="90" height="90">');
 
             } else {
                 //$('#eheat').prop('checked', false);
-                $('#eheatStuff').append('<img src="images/eheat_cold.png" width="90" height="90">');
-            }
+                $('#eheatStuff').html('<img src="images/eheat_cold.png" width="90" height="90">');
+            }*/
         },
         error: function (data) {
             //alert(data.responseText);
         }
     });
+
+}
+
+function display() {
+
+    const fanData = mainData.fanData;
+    const heatData = mainData.heatData;
+    const eheatData = mainData.eheatData;
+
+    if (fanData === 1) {
+        //$('#fan').prop('checked', true);
+        $('#fanStuff').html('<img src="images/running_fan.gif" width="90" height="90">');
+
+    } else {
+        //$('#fan').prop('checked', false);
+        $('#fanStuff').html('<img src="images/not_running_fan.png" width="90" height="90">');
+    }
+
+    if (heatData === 1) {
+        //$('#heat').prop('checked', true);
+        $('#heatStuff').html('<img src="images/burning_flames.gif" width="90" height="90">');
+    } else {
+        //$('#heat').prop('checked', false);
+        $('#heatStuff').html('<img src="images/heater_no_heat.png" width="90" height="90">');
+    }
+
+    if (eheatData === 1) {
+        //$('#eheat').prop('checked', true);
+        $('#eheatStuff').html('<img src="images/eheat_on.png" width="90" height="90">');
+
+    } else {
+        //$('#eheat').prop('checked', false);
+        $('#eheatStuff').html('<img src="images/eheat_cold.png" width="90" height="90">');
+    }
 
 }
 

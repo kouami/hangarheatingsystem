@@ -9,23 +9,18 @@ include 'profile.php';
     header("refresh: 360;");
     ?>
     <title>MN 130th Heating Controler</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!--script src="http://www.google.com/jsapi"></script -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script src="js/jquery.min-3.2.1.js"></script>
+    <script src="js/gstatic-charts-loader.js"></script>
+    <script src="js/popper-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min-4.0.0-beta.2.js"></script>
+    <script src="js/bootstrap-toggle.min-2.2.2.js"></script>
+    <script src="js/jquery-ui.min-1.10.2.js"></script>
     <script src="js/jQuery.switchButton.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/jquery.timepicker.min-1.3.5.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="css/jquery.timepicker.min-1.3.5.css">
+    <link rel="stylesheet" href="css/bootstrap.min-4.0.0-beta.2.css">
     <link rel="stylesheet" href="css/jQuery.switchButton.css">
     <style>
         .switch-wrapper {
@@ -76,6 +71,8 @@ include 'profile.php';
             google.charts.setOnLoadCallback(drawLineGraphs);
             drawLineGraphs();
             setInterval(drawLineGraphs, 360000); //redraw every 6 minutes without refreshing the page
+            //setInterval(drawLineGraphs, 1000); // For testing purpose
+            display();
             processTimeData()
             processLogin();
         });
@@ -152,39 +149,42 @@ include 'profile.php';
 
 <body>
 
-<div class="jumbotron text-center">
-    <h5 class="display-4">MN 130th Hangar Heater control system</h5>
-
-    <hr class="my-4">
-</div>
-
 <div class="container">
     <div class="row">
+    <div class="p-1 mb-4 bg-primary rounded-3 border border-secondary">
+        <div class="container-fluid py-5">
+            <h3 class="display-6 fw-bold text-light">MN 130th Hangar Heater control system</h3>
+            <p class="col-md-8 fs-4 text-light">This website displays temperature, humidity data as well as allows authorized
+                personnel to set the date and time preheating a specific room.</p>
+        </div>
+    </div>
+    </div>
+    <div class="row">
 
-        <div class="col-sm-12">
+        <div class="col-sm-24">
             <h3>Upstairs Temperature and Humidity</h3>
 
-            <div id="myGraph2" style="border:1px solid black; width:603px;"></div>
+            <div id="myGraph2" class="border border-primary d-flex"></div>
 
         </div>
+        <div class="col-sm-24"></div>
     </div> <!-- end of first class row -->
 
     <div class="row">
 
-        <div class="col-sm-12">
+        <div class="col-sm-24">
             <h3>Downstairs Temperature and Humidity</h3>
 
-            <div id="testdisplay"></div>
-            <div id="myGraph" style="border:1px solid black; width:603px;"></div>
+            <div id="myGraph" class="border border-primary d-flex"></div>
 
         </div>
-
+        <div class="col-sm-24"></div>
 
     </div> <!-- end of second class row -->
 
     <div class="row">
 
-        <div class=" col">
+        <div class="col-sm-24">
             <br/>
             <div style="background:#f1f8e9; border:1px solid black; width:603px;">
 
@@ -206,7 +206,7 @@ include 'profile.php';
 
     <div class="row">
 
-        <div class="col-sm-12">
+        <div class="col-sm-24">
 
 
             <?php
@@ -226,23 +226,38 @@ include 'profile.php';
             $Ult = $json[2] * 10;
             $Ult = (int)$Ult;
             $Ult = $Ult / 10;
-            print  "<h4>" . $llt . "&#176C LL Temperatur " . (int)$json[1] . "%  LL Humidity " . $json[8] . "g/m&#179 Abs Humidity</h4>";
-            print  "<h4>" . $Ult . "&#176C UL Temperatur " . (int)$json[3] . "%  UL Humidity " . $json[9] . "g/m&#179 Abs Humidity</h4>";
-            print  "<h4>" . $json[5] . "&#176C Outside Temperatur " . $json[6] . "%  Outside Humidity " . $json[7] . "g/m&#179 Abs Humidity</h4>";
             ?>
 
+            <br/>
+            <div class="alert alert-primary d-flex align-items-center border border-primary" role="alert">
+                <div>
+                    <?php print  "<h6>" . $llt . "&#176C LL Temperatur " . (int)$json[1] . "%  LL Humidity " . $json[8] . "g/m&#179 Abs Humidity</h6>"; ?>
+                </div>
+            </div>
+
+            <div class="alert alert-success d-flex align-items-center border border-success" role="alert">
+                <div>
+                    <?php print  "<h6>" . $Ult . "&#176C UL Temperatur " . (int)$json[3] . "%  UL Humidity " . $json[9] . "g/m&#179 Abs Humidity</h6>"; ?>
+                </div>
+            </div>
+
+            <div class="alert alert-warning d-flex align-items-center border border-warning" role="alert">
+                <div>
+                    <?php print  "<h6>" . $json[5] . "&#176C Outside Temperatur " . $json[6] . "%  Outside Humidity " . $json[7] . "g/m&#179 Abs Humidity</h6>"; ?>
+                </div>
+            </div>
+            <a href="#" class="text-light fst-normal badge bg-secondary">
             <?php
             $t = time();
             (int)$delta = $t - (int)$json[4];
             echo($delta . " Seconds since last measurment    ");
             echo(date("d-F-Y   G:i", $t));
             $tj = date("G", $t);
-
             ?>
-
+            </a>
             <p>
 
-            <div class="alert alert-success" style="width:600px">
+            <div class="alert alert-success border border-success" style="width:600px">
                 <h5>
 
                     <div>
