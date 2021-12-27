@@ -13,6 +13,7 @@ include 'profile.php';
     <script src="js/gstatic-charts-loader.js"></script>
     <script src="js/popper-1.12.3.min.js"></script>
     <script src="js/bootstrap.min-4.0.0-beta.2.js"></script>
+
     <script src="js/bootstrap-toggle.min-2.2.2.js"></script>
     <script src="js/jquery-ui.min-1.10.2.js"></script>
     <script src="js/jQuery.switchButton.js"></script>
@@ -73,7 +74,7 @@ include 'profile.php';
             setInterval(drawLineGraphs, 360000); //redraw every 6 minutes without refreshing the page
             //setInterval(drawLineGraphs, 1000); // For testing purpose
             display();
-            processTimeData()
+            //processTimeData()
             processLogin();
         });
     </script>
@@ -154,8 +155,10 @@ include 'profile.php';
     <div class="p-1 mb-4 bg-primary rounded-3 border border-secondary">
         <div class="container-fluid py-5">
             <h3 class="display-6 fw-bold text-light">MN 130th Hangar Heater control system</h3>
-            <p class="col-md-8 fs-4 text-light">This website displays temperature, humidity data as well as allows authorized
-                personnel to set the date and time preheating a specific room.</p>
+            <p class="col-md-8 fs-4 text-light">
+                This website displays temperature, humidity data as well as allows authorized
+                personnel to set the date and time for preheating a specific room.
+            </p>
         </div>
     </div>
     </div>
@@ -186,16 +189,15 @@ include 'profile.php';
 
         <div class="col-sm-24">
             <br/>
-            <div style="background:#f1f8e9; border:1px solid black; width:603px;">
+            <!--div style="background:#f1f8e9; border:1px solid black; width:603px;"-->
+            <div class="alert alert-secondary d-flex align-items-center border border-secondary">
 
 
                 <h4>
-                    <b><i>Fan</i></b><span id="fanStuff"></span>
-                    <b><i>Heat</i></b><span id="heatStuff"></span>
-                    <b><i>EHeat</i></b><span id="eheatStuff"></span>
+                    <b>Fan</b><span id="fanStuff"></span>
+                    <b>Heat</b><span id="heatStuff"></span>
+                    <b>EHeat</b><span id="eheatStuff"></span>
                 </h4>
-
-                <!--<h4><b><i>Heat</i></b><span id="heatStuff"></span></h4> -->
 
 
             </div>

@@ -3,14 +3,19 @@ session_start();
 include 'profile.php';
 
 
-$myfile = fopen("/home/pi/html/error.log", "w") or die("file not open");
+//$myfile = fopen("/home/pi/html/error.log", "w") or die("file not open");
 
 $db_handle = NULL;
+$myfile = NULL;
 
 if ($profile == "PROD") {
     $db_handle = new SQLite3('/home/pi/db/capheat.db') or die ("Cannot open the DB");
+    $myfile = fopen("/home/pi/html/error.log", "w") or die("file not open");
+
 } else {
     $db_handle = new SQLite3('db/capheat.db') or die ("Cannot open the DB");
+    $myfile = fopen("error.log", "w") or die("file not open");
+
 }
 
 // if(!$db_handle) die ("Cannot open the DB");
