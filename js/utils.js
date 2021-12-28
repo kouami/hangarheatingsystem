@@ -3,20 +3,23 @@ var mainData = "";
 function drawLineGraphs() {
 
     const options = {
+        theme: 'material',
         hAxis: {
             title: 'Time'
         },
         vAxis: {
             title: 'Temp/Humidity'
         },
-        min: 0,
-        max: 50,
+
         smoothLine: true,
         width: 600,
         height: 240,
         backgroundColor: '#f1f8e9',
         colors: ['#a52714', '#097138'],
-        chartArea: {left: 50, top: 30, width: "70%", height: "70%"}
+        min: 0,
+        max: 50,
+        chartArea: {left: 50, top: 30, width: "70%", height: "70%"},
+        tooltip: {isHtml: true}
     };
 
 
@@ -37,10 +40,12 @@ function drawLineGraphs() {
             responseDataD.addColumn('number', 'X');
             responseDataD.addColumn('number', 'Temperature');
             responseDataD.addColumn('number', 'Humidity');
+            // A column for custom tooltip content
+            responseDataD.addColumn({type: 'string', role: 'tooltip'});
             responseDataD.addRows(JSON.parse(downstairsData));
 
             const chartD = new google.visualization.LineChart(document.getElementById('myGraph'));
-            chartD.draw(responseDataD, options);
+            chartD.draw(responseDataD, google.charts.Line.convertOptions(options));
 
             <!-- Load and draw Upstairs data -->
 
@@ -50,10 +55,12 @@ function drawLineGraphs() {
             responseDataU.addColumn('number', 'X');
             responseDataU.addColumn('number', 'Temperature');
             responseDataU.addColumn('number', 'Humidity');
+            // A column for custom tooltip content
+            responseDataU.addColumn({type: 'string', role: 'tooltip'});
             responseDataU.addRows(JSON.parse(upstairsData));
 
             const chartU = new google.visualization.LineChart(document.getElementById('myGraph2'));
-            chartU.draw(responseDataU, options);
+            chartU.draw(responseDataU, google.charts.Line.convertOptions(options));
 
             $("#startTime").html(data.timeData.startTime);
             $("#endTime").html(data.timeData.endTime);

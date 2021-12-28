@@ -44,8 +44,11 @@ class DataProcessor
 
         for ($x = 0; $x < $index; $x++) {
             $temparray[$x] = $data[$x][1];
-            $downstairsData .= "[" . $x . "," . $data[$x][1] . "," . $data[$x][3] . "],";
-            $upstairsData .= "[" . $x . "," . $data[$x][2] . "," . $data[$x][4] . "],";
+            //$downstairsData .= "[" . $x . "," . $data[$x][1] . "," . $data[$x][3] . "],";
+            $downstairsData .= "[" . $x . "," . $data[$x][1] . "," . $data[$x][3] . "," . $this->unixTimeStampConverter($data[$x][0], $data[$x][1], $data[$x][3]) . "],";
+            //$upstairsData .= "[" . $x . "," . $data[$x][2] . "," . $data[$x][4] . "],";
+            $upstairsData .= "[" . $x . "," . $data[$x][2] . "," . $data[$x][4] . "," . $this->unixTimeStampConverter($data[$x][0], $data[$x][2], $data[$x][4]) . "],";
+
 
             if ($x === ($index - 1)) {
                 $heatData = $data[$x][5];
@@ -114,6 +117,11 @@ class DataProcessor
         }
 
         return array("timestamp" => $timestamp, "user" => $user, "startTime" => $startTime, "endTime" => $endTime);
+    }
+
+    function unixTimeStampConverter($time, $temperature, $humidity) {
+        $date = '"' . date("d F Y H:i:s", $time)  . "\\r\\nTemperature = " . $temperature . "\\r\\nHumidity = " . $humidity . '"';
+        return $date;
     }
 }
 
