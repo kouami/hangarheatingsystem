@@ -83,7 +83,7 @@ function drawLineGraphs() {
                     $("#fe").append("<button type=\"button\" class=\"list-group-item list-group-item-action\">\n" +
                         "    <div class=\"d-flex w-100 justify-content-between\">\n" +
                         "        <h5 class=\"mb-1\">Set By: " + futureEventData[i][1] + "</h5>\n" +
-                        "            <small class=\"text-muted\">" + new Date().setTime((new Date().getTime() - futureEventData[i][0]) / (24 * 60 * 60 * 1000)) + " days ago" + "</small>\n" +
+                        "            <small class=\"text-muted\">" + ((Math. round(new Date(). getTime() / 1000) - futureEventData[i][0]))/86400 + " days ago" + "</small>\n" +
                         "    </div>\n" +
                         "    <h5 class=\"mb-1\">Start Time: " + timeConverter(futureEventData[i][2]) + "</h5>\n" +
                         "    <h5 class=\"mb-1\">End Time: " + timeConverter(futureEventData[i][3]) + "</h5>\n" +

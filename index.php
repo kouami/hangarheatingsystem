@@ -12,7 +12,7 @@ include 'profile.php';
     <script src="js/jquery.min-3.2.1.js"></script>
     <script src="js/gstatic-charts-loader.js"></script>
     <script src="js/popper-1.12.3.min.js"></script>
-    <!--script src="js/bootstrap.min-4.0.0-beta.2.js"></script-->
+    <script src="js/bootstrap.min-4.0.0-beta.2.js"></script>
 
     <script src="js/bootstrap-toggle.min-2.2.2.js"></script>
     <script src="js/jquery-ui.min-1.10.2.js"></script>
