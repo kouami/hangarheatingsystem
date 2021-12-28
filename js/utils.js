@@ -32,6 +32,7 @@ function drawLineGraphs() {
             data = $.parseJSON(data);
             mainData = data;
 
+
             <!-- Load and draw Downstairs data -->
 
             const downstairsData = data.downstairsData;
@@ -66,12 +67,50 @@ function drawLineGraphs() {
             $("#endTime").html(data.timeData.endTime);
             $("#user").html(data.timeData.user);
 
+            const futureEventData = data.futureEvents;
+
+            if(futureEventData.length > 0) {
+                $("#futureEvents").append("<button type=\"button\" data-bs-toggle=\"collapse\" class=\"list-group-item list-group-item-action active bg-success\" data-bs-target=\"#fe\">\n" +
+                    "<div class=\"d-flex w-100 justify-content-between\">\n" +
+                    "<h5 class=\"mb-1\">Upcoming Future Events</h5>\n" +
+                    "\n" +
+                    "</div>\n" +
+                    "<p class=\"mb-1\">Click here to see future upcoming events.</p>\n" +
+                    "</button>");
+
+                for (let i = 0; i < futureEventData.length; i++) {
+
+                    $("#fe").append("<button type=\"button\" class=\"list-group-item list-group-item-action\">\n" +
+                        "    <div class=\"d-flex w-100 justify-content-between\">\n" +
+                        "        <h5 class=\"mb-1\">Set By: " + futureEventData[i][1] + "</h5>\n" +
+                        "            <small class=\"text-muted\">" + new Date().setTime((new Date().getTime() - futureEventData[i][0]) / (24 * 60 * 60 * 1000)) + " days ago" + "</small>\n" +
+                        "    </div>\n" +
+                        "    <h5 class=\"mb-1\">Start Time: " + timeConverter(futureEventData[i][2]) + "</h5>\n" +
+                        "    <h5 class=\"mb-1\">End Time: " + timeConverter(futureEventData[i][3]) + "</h5>\n" +
+                        "</button>");
+                }
+            }
+
+
         },
         error: function (data) {
             //alert(data.responseText);
         }
     });
 
+}
+
+function timeConverter(UNIX_timestamp) {
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+    return time;
 }
 
 function display() {
