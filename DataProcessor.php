@@ -43,10 +43,7 @@ class DataProcessor
         $eheatData = 0;
 
         for ($x = 0; $x < $index; $x++) {
-            $temparray[$x] = $data[$x][1];
-            //$downstairsData .= "[" . $x . "," . $data[$x][1] . "," . $data[$x][3] . "],";
             $downstairsData .= "[" . $x . "," . $data[$x][1] . "," . $data[$x][3] . "," . $this->unixTimeStampConverter($data[$x][0], $data[$x][1], $data[$x][3]) . "],";
-            //$upstairsData .= "[" . $x . "," . $data[$x][2] . "," . $data[$x][4] . "],";
             $upstairsData .= "[" . $x . "," . $data[$x][2] . "," . $data[$x][4] . "," . $this->unixTimeStampConverter($data[$x][0], $data[$x][2], $data[$x][4]) . "],";
 
 
@@ -68,7 +65,7 @@ class DataProcessor
         $upstairsData = $upstairsData . "]";
 
 
-        $data = array('downstairsData' => $downstairsData, 'upstairsData' => $upstairsData, 'fanData' => $fanData, 'heatData' => $heatData, "eheatData" => $eheatData, "timeData" => $this->timeDataArray($profile));
+        $data = array('downstairsData' => $downstairsData, 'upstairsData' => $upstairsData, 'fanData' => $fanData, 'heatData' => $heatData, "eheatData" => $eheatData, "timeData" => $this->timeDataArray($profile), "futureEvents" => $this->getUpcoming5Events($profile));
         $data = json_encode($data);
         return $data;
 
@@ -120,8 +117,24 @@ class DataProcessor
     }
 
     function unixTimeStampConverter($time, $temperature, $humidity) {
-        $date = '"' . date("d F Y H:i:s", $time)  . "\\r\\nTemperature = " . $temperature . "\\r\\nHumidity = " . $humidity . '"';
+        $date = '"' . date("d F Y H:i:s", $time)  . "\\r\\nTemperature = " . round($temperature, 3) . "\\r\\nHumidity = " . round($humidity, 3) . '"';
         return $date;
+    }
+
+    function getUpcoming5Events($profile) {
+        $db = new MyDB2($profile);
+        //$data = array();
+        $data = [];
+        $current_date_time = time();
+        $result = $db->query("SELECT * FROM time WHERE time.start > $current_date_time ORDER BY start ASC LIMIT 5");
+        while ($vale = $result->fetchArray()) {
+           // array_push($data, $vale);
+            $data[] = $vale;
+        }
+
+        //$data = []; // For testing purpose;
+        return $data;
+
     }
 }
 

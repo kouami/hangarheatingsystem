@@ -1,3 +1,3 @@
 <?php
 global $profile;
-$profile = "PROD";
+$profile = "";

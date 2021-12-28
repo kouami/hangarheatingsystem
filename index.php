@@ -12,7 +12,7 @@ include 'profile.php';
     <script src="js/jquery.min-3.2.1.js"></script>
     <script src="js/gstatic-charts-loader.js"></script>
     <script src="js/popper-1.12.3.min.js"></script>
-    <script src="js/bootstrap.min-4.0.0-beta.2.js"></script>
+    <!--script src="js/bootstrap.min-4.0.0-beta.2.js"></script-->
 
     <script src="js/bootstrap-toggle.min-2.2.2.js"></script>
     <script src="js/jquery-ui.min-1.10.2.js"></script>
@@ -20,8 +20,11 @@ include 'profile.php';
     <script src="js/utils.js"></script>
     <script src="js/jquery.timepicker.min-1.3.5.js"></script>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <link rel="stylesheet" href="css/jquery.timepicker.min-1.3.5.css">
-    <link rel="stylesheet" href="css/bootstrap.min-4.0.0-beta.2.css">
+    <!--link rel="stylesheet" href="css/bootstrap.min-4.0.0-beta.2.css"-->
     <link rel="stylesheet" href="css/jQuery.switchButton.css">
     <style>
         .switch-wrapper {
@@ -72,9 +75,7 @@ include 'profile.php';
             google.charts.setOnLoadCallback(drawLineGraphs);
             drawLineGraphs();
             setInterval(drawLineGraphs, 360000); //redraw every 6 minutes without refreshing the page
-            //setInterval(drawLineGraphs, 1000); // For testing purpose
             display();
-            //processTimeData()
             processLogin();
         });
     </script>
@@ -167,7 +168,7 @@ include 'profile.php';
         <div class="col-sm-24">
             <h3>Upstairs Temperature and Humidity</h3>
 
-            <div id="myGraph2" class="border border-primary d-flex"></div>
+            <div id="myGraph2" class="border border-primary d-flex" style="width:602px"></div>
 
         </div>
         <div class="col-sm-24"></div>
@@ -178,7 +179,7 @@ include 'profile.php';
         <div class="col-sm-24">
             <h3>Downstairs Temperature and Humidity</h3>
 
-            <div id="myGraph" class="border border-primary d-flex"></div>
+            <div id="myGraph" class="border border-primary d-flex" style="width:602px"></div>
 
         </div>
         <div class="col-sm-24"></div>
@@ -187,7 +188,7 @@ include 'profile.php';
 
     <div class="row">
 
-        <div class="col-sm-24">
+        <div class="col-sm-24" style="width:600px">
             <br/>
             <!--div style="background:#f1f8e9; border:1px solid black; width:603px;"-->
             <div class="alert alert-secondary d-flex align-items-center border border-secondary">
@@ -231,19 +232,19 @@ include 'profile.php';
             ?>
 
             <br/>
-            <div class="alert alert-primary d-flex align-items-center border border-primary" role="alert">
+            <div class="alert alert-primary d-flex align-items-center border border-primary" style="width:600px" role="alert">
                 <div>
                     <?php print  "<h6>" . $llt . "&#176C LL Temperatur " . (int)$json[1] . "%  LL Humidity " . $json[8] . "g/m&#179 Abs Humidity</h6>"; ?>
                 </div>
             </div>
 
-            <div class="alert alert-success d-flex align-items-center border border-success" role="alert">
+            <div class="alert alert-success d-flex align-items-center border border-success" style="width:600px" role="alert">
                 <div>
                     <?php print  "<h6>" . $Ult . "&#176C UL Temperatur " . (int)$json[3] . "%  UL Humidity " . $json[9] . "g/m&#179 Abs Humidity</h6>"; ?>
                 </div>
             </div>
 
-            <div class="alert alert-warning d-flex align-items-center border border-warning" role="alert">
+            <div class="alert alert-warning d-flex align-items-center border border-warning" style="width:600px" role="alert">
                 <div>
                     <?php print  "<h6>" . $json[5] . "&#176C Outside Temperatur " . $json[6] . "%  Outside Humidity " . $json[7] . "g/m&#179 Abs Humidity</h6>"; ?>
                 </div>
@@ -281,6 +282,17 @@ include 'profile.php';
 
         </div>
     </div> <!-- End of row -->
+    <div class="row"> <!-- Future Events Row -->
+        <div class="col-sm-24">
+        <div class="list-group" id="futureEvents" style="width:400px">
+
+            <div id="fe" class="collapse">
+
+            </div>
+
+        </div>
+    </div>
+    </div>
 
     <!-- Login Modal -->
 
