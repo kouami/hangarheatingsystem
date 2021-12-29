@@ -87,6 +87,7 @@ function drawLineGraphs() {
                         "    </div>\n" +
                         "    <h5 class=\"mb-1\">Start Time: " + timeConverter(futureEventData[i][2]) + "</h5>\n" +
                         "    <h5 class=\"mb-1\">End Time: " + timeConverter(futureEventData[i][3]) + "</h5>\n" +
+                        "    <a href=\"#\" id=\"" + "events" + i  + "\" type=\"button\" name=\"" + futureEventData[i][0]  + "\" class=\"btn btn-secondary\" onClick=\"deleteEvent(this.name)\">Delete</a>\n" +
                         "</button>");
                 }
             }
@@ -98,6 +99,19 @@ function drawLineGraphs() {
         }
     });
 
+}
+
+function deleteEvent(timestamp) {
+
+    $.ajax({
+        url: "deleteEvents.php",
+        method: "POST",
+        data: {timestamp:timestamp},
+        success: function () {
+            location.reload();
+        }
+    });
+    //alert(timestamp);
 }
 
 function timeConverter(UNIX_timestamp) {
