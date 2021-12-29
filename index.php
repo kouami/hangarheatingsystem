@@ -21,20 +21,13 @@ include 'profile.php';
     <script src="js/jquery.timepicker.min-1.3.5.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" href="css/jquery.timepicker.min-1.3.5.css">
     <!--link rel="stylesheet" href="css/bootstrap.min-4.0.0-beta.2.css"-->
     <link rel="stylesheet" href="css/jQuery.switchButton.css">
-    <style>
-        .switch-wrapper {
-            display: inline-block;
-            position: relative;
-            top: 3px;
-            font-size: 18px;
 
-        }
-    </style>
     <style>
         .modal-header-primary {
             color: #fff;
@@ -112,86 +105,53 @@ include 'profile.php';
         display: none
     }
 </style>
-<style>
-    @media (min-width: 768px) {
-        .container-small {
-            width: 300px;
-        }
 
-        .container-large {
-            width: 970px;
-        }
-    }
-
-    @media (min-width: 992px) {
-        .container-small {
-            width: 500px;
-        }
-
-        .container-large {
-            width: 1170px;
-        }
-    }
-
-    @media (min-width: 1200px) {
-        .container-small {
-            width: 700px;
-        }
-
-        .container-large {
-            width: 1500px;
-        }
-    }
-
-    .container-small, .container-large {
-        max-width: 100%;
-    }
-
-</style>
 
 <body>
 
 <div class="container">
+    <br/>
     <div class="row">
-    <div class="p-1 mb-4 bg-primary rounded-3 border border-secondary">
-        <div class="container-fluid py-5">
+
+        <div class="container-fluid py-5 bg-primary rounded-3 border">
             <h3 class="display-6 fw-bold text-light">MN 130th Hangar Heater control system</h3>
             <p class="col-md-8 fs-4 text-light">
                 This website displays temperature, humidity data as well as allows authorized
                 personnel to set the date and time for preheating a specific room.
             </p>
         </div>
-    </div>
+
     </div>
     <div class="row">
 
-        <div class="col-sm-24">
+        <div class="col-sm-6">
             <h3>Upstairs Temperature and Humidity</h3>
 
-            <div id="myGraph2" class="border border-primary d-flex" style="width:602px"></div>
+            <div id="myGraph2" class="border border-primary"></div>
 
         </div>
-        <div class="col-sm-24"></div>
+        <div class="col-sm-6"></div>
     </div> <!-- end of first class row -->
 
     <div class="row">
 
-        <div class="col-sm-24">
+        <div class="col-sm-6">
             <h3>Downstairs Temperature and Humidity</h3>
 
-            <div id="myGraph" class="border border-primary d-flex" style="width:602px"></div>
+            <div id="myGraph" class="border border-primary d-flex"></div>
 
         </div>
-        <div class="col-sm-24"></div>
+        <div class="col-sm-6"></div>
 
     </div> <!-- end of second class row -->
 
     <div class="row">
 
-        <div class="col-sm-24" style="width:600px">
+        <!--div class="col-sm-24" style="width:600px"-->
+        <div class="col-sm-6">
             <br/>
             <!--div style="background:#f1f8e9; border:1px solid black; width:603px;"-->
-            <div class="alert alert-secondary d-flex align-items-center border border-secondary">
+            <div class="alert alert-secondary  align-items-center border border-secondary">
 
 
                 <h4>
@@ -204,12 +164,13 @@ include 'profile.php';
             </div>
 
         </div>
+        <div class="col-sm-6"></div>
     </div> <!-- end of second row -->
 
 
     <div class="row">
 
-        <div class="col-sm-24">
+        <div class="col-sm-6">
 
 
             <?php
@@ -232,35 +193,35 @@ include 'profile.php';
             ?>
 
             <br/>
-            <div class="alert alert-primary d-flex align-items-center border border-primary" style="width:600px" role="alert">
+            <div class="alert alert-primary d-flex align-items-center border border-primary" role="alert">
                 <div>
                     <?php print  "<h6>" . $llt . "&#176C LL Temperatur " . (int)$json[1] . "%  LL Humidity " . $json[8] . "g/m&#179 Abs Humidity</h6>"; ?>
                 </div>
             </div>
 
-            <div class="alert alert-success d-flex align-items-center border border-success" style="width:600px" role="alert">
+            <div class="alert alert-success d-flex align-items-center border border-success" role="alert">
                 <div>
                     <?php print  "<h6>" . $Ult . "&#176C UL Temperatur " . (int)$json[3] . "%  UL Humidity " . $json[9] . "g/m&#179 Abs Humidity</h6>"; ?>
                 </div>
             </div>
 
-            <div class="alert alert-warning d-flex align-items-center border border-warning" style="width:600px" role="alert">
+            <div class="alert alert-warning d-flex align-items-center border border-warning" role="alert">
                 <div>
                     <?php print  "<h6>" . $json[5] . "&#176C Outside Temperatur " . $json[6] . "%  Outside Humidity " . $json[7] . "g/m&#179 Abs Humidity</h6>"; ?>
                 </div>
             </div>
             <a href="#" class="text-light fst-normal badge bg-secondary">
-            <?php
-            $t = time();
-            (int)$delta = $t - (int)$json[4];
-            echo($delta . " Seconds since last measurment    ");
-            echo(date("d-F-Y   G:i", $t));
-            $tj = date("G", $t);
-            ?>
+                <?php
+                $t = time();
+                (int)$delta = $t - (int)$json[4];
+                echo($delta . " Seconds since last measurment    ");
+                echo(date("d-F-Y   G:i", $t));
+                $tj = date("G", $t);
+                ?>
             </a>
             <p>
 
-            <div class="alert alert-success border border-success" style="width:600px">
+            <div class="alert alert-success border border-success">
                 <h5>
 
                     <div>
@@ -278,27 +239,28 @@ include 'profile.php';
                 </button>
             </div>
 
-            <!--<button type="button" name="login" id="login" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loginModal">Login</button>-->
-
         </div>
+        <div class="col-sm-6"></div>
     </div> <!-- End of row -->
     <div class="row"> <!-- Future Events Row -->
-        <div class="col-sm-24">
-        <div class="list-group" id="futureEvents" style="width:400px">
+        <div class="col-sm-4">
+            <div class="list-group" id="futureEvents">
 
-            <div id="fe" class="collapse">
+                <div id="fe" class="collapse">
+
+                </div>
 
             </div>
-
         </div>
-    </div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4"></div>
     </div>
 
     <!-- Login Modal -->
 
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
 
                 <div class="modal-header modal-header-primary">
@@ -314,14 +276,14 @@ include 'profile.php';
                                 <label for="username" class="input-group-addon glyphicon glyphicon-user"></label>
                             </div>
                         </div> <!-- /.form-group -->
-
+                        <br/>
                         <div class="form-group">
                             <div class="input-group">
                                 <input type="password" class="form-control" id="password" placeholder="Password">
                                 <label for="password" class="input-group-addon glyphicon glyphicon-lock"></label>
                             </div> <!-- /.input-group -->
                         </div> <!-- /.form-group -->
-
+                        <br/>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox"> Remember me
@@ -333,13 +295,6 @@ include 'profile.php';
 
                 <div class="modal-footer">
                     <button id="login_button" class="form-control btn btn-primary">Ok</button>
-
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="1"
-                             aria-valuemin="1" aria-valuemax="100" style="width: 0%;">
-                            <span class="sr-only">progress</span>
-                        </div>
-                    </div>
                 </div> <!-- /.modal-footer -->
 
             </div><!-- /.modal-content -->
@@ -351,10 +306,6 @@ include 'profile.php';
     <!--</div> --> <!-- end of second row -->
 
 </div> <!-- class container -->
-
-<?php
-//print "The profile is : " .  $GLOBALS['profile'];
-?>
 </body>
 </html>
 

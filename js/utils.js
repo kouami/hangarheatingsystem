@@ -12,8 +12,8 @@ function drawLineGraphs() {
         },
 
         smoothLine: true,
-        width: 600,
-        height: 240,
+        //width: 600,
+        //height: 240,
         backgroundColor: '#f1f8e9',
         colors: ['#a52714', '#097138'],
         min: 0,
@@ -87,7 +87,7 @@ function drawLineGraphs() {
                         "    </div>\n" +
                         "    <h5 class=\"mb-1\">Start Time: " + timeConverter(futureEventData[i][2]) + "</h5>\n" +
                         "    <h5 class=\"mb-1\">End Time: " + timeConverter(futureEventData[i][3]) + "</h5>\n" +
-                        "    <a href=\"#\" id=\"" + "events" + i  + "\" type=\"button\" name=\"" + futureEventData[i][0]  + "\" class=\"btn btn-secondary\" onClick=\"deleteEvent(this.name)\">Delete</a>\n" +
+                        "    <a href=\"#\" id=\"" + "events" + i  + "\" type=\"button\" name=\"" + futureEventData[i][0]  + "\" class=\"btn btn-outline-primary\" onClick=\"deleteEvent(this.name)\">Delete</a>\n" +
                         "</button>");
                 }
             }
@@ -135,28 +135,28 @@ function display() {
 
     if (fanData === 1) {
         //$('#fan').prop('checked', true);
-        $('#fanStuff').html('<img src="images/running_fan.gif" width="90" height="90">');
+        $('#fanStuff').html('<img src="images/running_fan.gif" width="50" height="50">');
 
     } else {
         //$('#fan').prop('checked', false);
-        $('#fanStuff').html('<img src="images/not_running_fan.png" width="90" height="90">');
+        $('#fanStuff').html('<img src="images/not_running_fan.png" width="50" height="50">');
     }
 
     if (heatData === 1) {
         //$('#heat').prop('checked', true);
-        $('#heatStuff').html('<img src="images/burning_flames.gif" width="90" height="90">');
+        $('#heatStuff').html('<img src="images/burning_flames.gif" width="50" height="50">');
     } else {
         //$('#heat').prop('checked', false);
-        $('#heatStuff').html('<img src="images/heater_no_heat.png" width="90" height="90">');
+        $('#heatStuff').html('<img src="images/heater_no_heat.png" width="50" height="50">');
     }
 
     if (eheatData === 1) {
         //$('#eheat').prop('checked', true);
-        $('#eheatStuff').html('<img src="images/eheat_on.png" width="90" height="90">');
+        $('#eheatStuff').html('<img src="images/eheat_on.png" width="50" height="50">');
 
     } else {
         //$('#eheat').prop('checked', false);
-        $('#eheatStuff').html('<img src="images/eheat_cold.png" width="90" height="90">');
+        $('#eheatStuff').html('<img src="images/eheat_cold.png" width="50" height="50">');
     }
 
 }
