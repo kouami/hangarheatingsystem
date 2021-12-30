@@ -124,31 +124,31 @@ include 'profile.php';
     </div>
     <div class="row">
 
-        <div class="col-sm-6">
-            <h3>Upstairs Temperature and Humidity</h3>
+        <div class="col-md-6">
+            <h4>Upstairs Temperature and Humidity</h4>
 
             <div id="myGraph2" class="border border-primary"></div>
 
         </div>
-        <div class="col-sm-6"></div>
+        <div class="md-md-6"></div>
     </div> <!-- end of first class row -->
 
     <div class="row">
 
-        <div class="col-sm-6">
-            <h3>Downstairs Temperature and Humidity</h3>
+        <div class="col-md-6">
+            <h4>Downstairs Temperature and Humidity</h4>
 
             <div id="myGraph" class="border border-primary d-flex"></div>
 
         </div>
-        <div class="col-sm-6"></div>
+        <div class="col-md-6"></div>
 
     </div> <!-- end of second class row -->
 
     <div class="row">
 
         <!--div class="col-sm-24" style="width:600px"-->
-        <div class="col-sm-6">
+        <div class="col-md-6">
             <br/>
             <!--div style="background:#f1f8e9; border:1px solid black; width:603px;"-->
             <div class="alert alert-secondary  align-items-center border border-secondary">
@@ -164,13 +164,13 @@ include 'profile.php';
             </div>
 
         </div>
-        <div class="col-sm-6"></div>
+        <div class="col-md-6"></div>
     </div> <!-- end of second row -->
 
 
     <div class="row">
 
-        <div class="col-sm-6">
+        <div class="col-md-6">
 
 
             <?php
@@ -195,30 +195,22 @@ include 'profile.php';
             <br/>
             <div class="alert alert-primary d-flex align-items-center border border-primary" role="alert">
                 <div>
-                    <?php print  "<h6>" . $llt . "&#176C LL Temperatur " . (int)$json[1] . "%  LL Humidity " . $json[8] . "g/m&#179 Abs Humidity</h6>"; ?>
+                    <?php print  "<h6>" . $llt . "&#176C LL Temperature " . (int)$json[1] . "%  LL Humidity " . $json[8] . "g/m&#179 Abs Humidity</h6>"; ?>
                 </div>
             </div>
 
             <div class="alert alert-success d-flex align-items-center border border-success" role="alert">
                 <div>
-                    <?php print  "<h6>" . $Ult . "&#176C UL Temperatur " . (int)$json[3] . "%  UL Humidity " . $json[9] . "g/m&#179 Abs Humidity</h6>"; ?>
+                    <?php print  "<h6>" . $Ult . "&#176C UL Temperature " . (int)$json[3] . "%  UL Humidity " . $json[9] . "g/m&#179 Abs Humidity</h6>"; ?>
                 </div>
             </div>
 
             <div class="alert alert-warning d-flex align-items-center border border-warning" role="alert">
                 <div>
-                    <?php print  "<h6>" . $json[5] . "&#176C Outside Temperatur " . $json[6] . "%  Outside Humidity " . $json[7] . "g/m&#179 Abs Humidity</h6>"; ?>
+                    <?php print  "<h6>" . $json[5] . "&#176C Outside Temperature " . $json[6] . "%  Outside Humidity " . $json[7] . "g/m&#179 Abs Humidity</h6>"; ?>
                 </div>
             </div>
-            <a href="#" class="text-light fst-normal badge bg-secondary">
-                <?php
-                $t = time();
-                (int)$delta = $t - (int)$json[4];
-                echo($delta . " Seconds since last measurment    ");
-                echo(date("d-F-Y   G:i", $t));
-                $tj = date("G", $t);
-                ?>
-            </a>
+
             <p>
 
             <div class="alert alert-success border border-success">
@@ -240,10 +232,10 @@ include 'profile.php';
             </div>
 
         </div>
-        <div class="col-sm-6"></div>
+        <div class="col-md-6"></div>
     </div> <!-- End of row -->
     <div class="row"> <!-- Future Events Row -->
-        <div class="col-sm-4">
+        <div class="col-md-6">
             <div class="list-group" id="futureEvents">
 
                 <div id="fe" class="collapse">
@@ -252,8 +244,8 @@ include 'profile.php';
 
             </div>
         </div>
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
     </div>
 
     <!-- Login Modal -->
@@ -304,7 +296,17 @@ include 'profile.php';
     <!-- End Login Modal -->
 
     <!--</div> --> <!-- end of second row -->
-
+    <div class="text-light fst-normal badge bg-secondary">
+        <?php
+        $t = time();
+        (int)$delta = $t - (int)$json[4];
+        echo($delta . " Seconds since last measurment    ");
+        echo(date("d-F-Y   G:i", $t));
+        $tj = date("G", $t);
+        ?>
+    </div>
+    <br/>
+    <br/>
 </div> <!-- class container -->
 </body>
 </html>
