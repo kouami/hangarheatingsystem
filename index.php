@@ -229,6 +229,10 @@ include 'profile.php';
                 <button type="button" name="login" id="login" class="btn btn-primary btn-lg" data-toggle="modal"
                         data-target="#loginModal">Login
                 </button>
+                <button type="button" name="delete" id="delete" class="btn btn-secondary btn-lg"
+                        onClick="deleteCurrentEvent()">
+                    Delete
+                </button>
             </div>
 
         </div>

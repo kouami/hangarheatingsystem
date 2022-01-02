@@ -66,6 +66,7 @@ function drawLineGraphs() {
             $("#startTime").html(data.timeData.startTime);
             $("#endTime").html(data.timeData.endTime);
             $("#user").html(data.timeData.user);
+            $("#delete").attr("name", data.timeData.timestamp);
 
             const futureEventData = data.futureEvents;
 
@@ -85,8 +86,8 @@ function drawLineGraphs() {
                         "        <h5 class=\"mb-1\">Set By: " + futureEventData[i][1] + "</h5>\n" +
                         "            <small class=\"text-muted\">" + "Created on " + timeConverter(futureEventData[i][0])  + "</small>\n" +
                         "    </div>\n" +
-                        "    <h5 class=\"mb-1\">Start Time: " + timeConverter(futureEventData[i][2]) + "</h5>\n" +
-                        "    <h5 class=\"mb-1\">End Time: " + timeConverter(futureEventData[i][3]) + "</h5>\n" +
+                        "    <h5 class=\"mb-1\">Start Time: " + futureEventData[i][2] + "</h5>\n" +
+                        "    <h5 class=\"mb-1\">End Time: " + futureEventData[i][3] + "</h5>\n" +
                         "    <a href=\"#\" id=\"" + "events" + i  + "\" type=\"button\" name=\"" + futureEventData[i][0]  + "\" class=\"btn btn-outline-primary\" onClick=\"deleteEvent(this.name)\">Delete</a>\n" +
                         "</button>");
                 }
@@ -95,7 +96,7 @@ function drawLineGraphs() {
 
         },
         error: function (data) {
-            //alert(data.responseText);
+            alert(data.responseText);
         }
     });
 
@@ -111,8 +112,20 @@ function deleteEvent(timestamp) {
             location.reload();
         }
     });
-    //alert(timestamp);
 }
+
+function deleteCurrentEvent() {
+
+    $.ajax({
+        url: "dateAndTimeSetter.php",
+        method: "POST",
+        data: {delete:$("#delete").attr("name")},
+        success: function (data) {
+            location.reload();
+        }
+    });
+}
+
 
 function timeConverter(UNIX_timestamp) {
     var a = new Date(UNIX_timestamp * 1000);
@@ -199,3 +212,4 @@ function processLogin() {
     });
 
 }
+

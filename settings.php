@@ -38,9 +38,11 @@ if ($_SESSION['logged_in'] != 1) {
             border-radius: 3px;
             border: 1px solid green;
         }
+
         #datetimepickerStart {
             display: inline-block;
         }
+
         #datetimepickerEnd {
             display: inline-block;
         }
@@ -67,6 +69,7 @@ if ($_SESSION['logged_in'] != 1) {
             $("#settingData").submit(function (event) {
                 event.preventDefault();
 
+                //if ($("#start").val() != '' && $("#end").val() != '' && new Date($("#start").val()) <= new Date($("#end").val())) {
                 if ($("#start").val() != '' && $("#end").val() != '') {
 
 
@@ -81,7 +84,6 @@ if ($_SESSION['logged_in'] != 1) {
                         url: "dateAndTimeSetter.php",
                         method: "POST",
                         data: formData,
-                        //dataType: 'json',
                         encode: true,
                         success: function (data) {
                             //alert("success settings" + data);
@@ -98,7 +100,7 @@ if ($_SESSION['logged_in'] != 1) {
                         }
                     });
                 } else {
-                    alert("Both Fields are required...");
+                    alert("Both Fields are required or the date range is wrong...\nPlease check and correct the date range.");
                 }
             });
         });

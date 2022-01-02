@@ -23,16 +23,20 @@ if ($profile == "PROD") {
 $startDateTimeStr = $_POST['start'];
 $endDateTimeStr = $_POST['end'];
 $fanValue = $_POST['fan'];
+$deleteStr = $_POST['delete'];
 
 $startTimestamp = strtotime($startDateTimeStr);
 $endTimestamp = strtotime($endDateTimeStr);
 $username = $_SESSION["username"];
 $currentTimestamp = strtotime('now');
+$deleteValue = strtotime($deleteStr);
 
 $fanTranslatedValue = 0;
+
 if ($fanValue === "on") {
     $fanTranslatedValue = 1;
 }
+
 $newline = "\n";
 fwrite($myfile, "$newline");
 
@@ -48,7 +52,19 @@ fwrite($myfile, $fanTranslatedValue);
 
 fwrite($myfile, "$newline");
 
-$ok1 = $db_handle->exec("INSERT INTO time VALUES ($currentTimestamp,'$username',$startTimestamp,$endTimestamp,$fanTranslatedValue)");
+fwrite($myfile, "The value is $deleteStr");
+fwrite($myfile, "$newline");
+fwrite($myfile, "The value is $deleteValue");
+
+$ok1 = NULL;
+
+if(isset($_POST['delete'])) {
+    $ok1 = $db_handle->query("DELETE FROM time WHERE timestamp=$deleteStr");
+} else {
+    if(($startTimestamp >= $currentTimestamp) &&  ($startTimestamp <= $endTimestamp)) {
+        $ok1 = $db_handle->exec("INSERT INTO time VALUES ($currentTimestamp,'$username',$startTimestamp,$endTimestamp,$fanTranslatedValue)");
+    }
+}
 
 fwrite($myfile, "Error ::: " . $db_handle->lastErrorMsg());
 fwrite($myfile, "$newline");
@@ -61,4 +77,4 @@ if (!$ok1) die("Cannot Insert data");
 fclose($myfile);
 
 exit(1);
-?>
+

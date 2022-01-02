@@ -121,20 +121,29 @@ class DataProcessor
         return $date;
     }
 
+
     function getUpcoming5Events($profile) {
         $db = new MyDB2($profile);
-        //$data = array();
         $data = [];
         $current_date_time = time();
-        $result = $db->query("SELECT * FROM time WHERE time.start > $current_date_time ORDER BY start ASC LIMIT 5");
+        $result = $db->query("SELECT * FROM time WHERE time.start > $current_date_time ORDER BY start ASC LIMIT 5 OFFSET 1");
         while ($vale = $result->fetchArray()) {
-           // array_push($data, $vale);
+            // array_push($data, $vale);
+            // $vale = date("d F Y H:i:s", $vale);
             $data[] = $vale;
         }
 
-        //$data = []; // For testing purpose;
-        return $data;
+        $index =  count($data);
 
+        $newData = [];
+        for ($x = 0; $x < $index; $x++) {
+            $newData[$x][0] = $data[$x][0];
+            $newData[$x][1] = $data[$x][1];
+            $newData[$x][2] = date("d F Y H:i:s", $data[$x][2]);
+            $newData[$x][3] = date("d F Y H:i:s", $data[$x][3]);
+        }
+
+        return $newData;
     }
 }
 
