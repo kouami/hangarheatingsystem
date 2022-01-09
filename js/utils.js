@@ -28,10 +28,8 @@ function drawLineGraphs() {
         async: false,
         type: "POST",
         success: function (data, status, xhr) {
-
             data = $.parseJSON(data);
             mainData = data;
-
 
             <!-- Load and draw Downstairs data -->
 

@@ -75,8 +75,8 @@ if(isset($_POST['delete'])) {
 
     if(/*($startTimestamp >= $currentTimestamp) &&*/  ($startTimestamp <= $endTimestamp)) {
 
-        $ok1 = $db_handle->exec("INSERT INTO time VALUES ($currentTimestamp,'$username',$startTimestamp,$endTimestamp,$fanTranslatedValue)");
-        //$ok1 = $db_handle->query("INSERT INTO time VALUES ($currentTimestamp,'$username',$startTimestamp,$endTimestamp,$fanTranslatedValue)");
+        //$ok1 = $db_handle->exec("INSERT INTO time VALUES ($currentTimestamp,'$username',$startTimestamp,$endTimestamp,$fanTranslatedValue)");
+        $ok1 = $db_handle->query("INSERT INTO time VALUES ($currentTimestamp,'$username',$startTimestamp,$endTimestamp,$fanTranslatedValue)");
 
     }
 }

@@ -82,7 +82,7 @@ class DataProcessor
 
     function timeDataArray($profile) {
 
-        date_default_timezone_set("America/Chicago");
+        //date_default_timezone_set("America/Chicago");
 
         $myfile = NULL;
         $myfile = fopen("error2.log", "w") or die("file not open");
