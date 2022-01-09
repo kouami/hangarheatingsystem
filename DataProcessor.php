@@ -84,8 +84,8 @@ class DataProcessor
 
         //date_default_timezone_set("America/Chicago");
 
-        $myfile = NULL;
-        $myfile = fopen("error2.log", "w") or die("file not open");
+        //$myfile = NULL;
+        //$myfile = fopen("error2.log", "w") or die("file not open");
 
         $db = new MyDB2($profile);
 
@@ -102,16 +102,16 @@ class DataProcessor
         $endTime = 0;
         $user = "";
 
-        fwrite($myfile, "\n");
-        fwrite($myfile, "The value is index :" + $index);
+        //fwrite($myfile, "\n");
+        //fwrite($myfile, "The value is index :" + $index);
 
         // find the first time block that is in the future   needs improvement 30-Dec-2017 Ulrich Roedder //
         for ($x = 0; $x < $index; $x++) {
 
-            fwrite($myfile, "\n");
-            fwrite($myfile, "The value is end: " . $data[$x][3]);
+            //fwrite($myfile, "\n");
+            //fwrite($myfile, "The value is end: " . $data[$x][3]);
 
-            fwrite($myfile, "Time ::: " . time());
+            //fwrite($myfile, "Time ::: " . time());
             if ($data[$x][3] > time()) {
 
                 //fwrite($myfile, " In loop ");
