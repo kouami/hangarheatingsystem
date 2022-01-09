@@ -28,7 +28,9 @@ $deleteStr = $_POST['delete'];
 $startTimestamp = strtotime($startDateTimeStr);
 $endTimestamp = strtotime($endDateTimeStr);
 $username = $_SESSION["username"];
-$currentTimestamp = strtotime('now');
+//$currentTimestamp = strtotime('now');
+$currentTimestamp = strtotime("now");
+
 $deleteValue = strtotime($deleteStr);
 
 $fanTranslatedValue = 0;
@@ -61,8 +63,21 @@ $ok1 = NULL;
 if(isset($_POST['delete'])) {
     $ok1 = $db_handle->query("DELETE FROM time WHERE timestamp=$deleteStr");
 } else {
-    if(($startTimestamp >= $currentTimestamp) &&  ($startTimestamp <= $endTimestamp)) {
+
+    fwrite($myfile, "Start Time: $startTimestamp");
+    fwrite($myfile, "$newline");
+    fwrite($myfile, "End Time $endTimestamp");
+    fwrite($myfile, "$newline");
+    fwrite($myfile, "Current Time $currentTimestamp");
+    fwrite($myfile, "$newline");
+
+    date_default_timezone_set("America/Chicago");
+
+    if(/*($startTimestamp >= $currentTimestamp) &&*/  ($startTimestamp <= $endTimestamp)) {
+
         $ok1 = $db_handle->exec("INSERT INTO time VALUES ($currentTimestamp,'$username',$startTimestamp,$endTimestamp,$fanTranslatedValue)");
+        //$ok1 = $db_handle->query("INSERT INTO time VALUES ($currentTimestamp,'$username',$startTimestamp,$endTimestamp,$fanTranslatedValue)");
+
     }
 }
 

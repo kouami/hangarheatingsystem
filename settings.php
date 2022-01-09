@@ -174,10 +174,12 @@ if ($_SESSION['logged_in'] != 1) {
     </div>
     <div class="col-sm-6"></div>
     <!-- End of row -->
-    <?php
-    ?>
-    <a href="logout.php" class="btn btn-info btn-md">
+
+    <!--a href="logout.php" class="btn btn-info btn-md">
         <span class="glyphicon glyphicon-log-out"></span> Log out
+    </a-->
+    <a href="index.php" class="btn btn-info btn-md">
+        <span class="glyphicon glyphicon-log-out"></span> Back
     </a>
 </div>
 </body>

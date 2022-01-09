@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'profile.php';
 
 
@@ -65,15 +66,26 @@ class DataProcessor
         $upstairsData = $upstairsData . "]";
 
 
-        $data = array('downstairsData' => $downstairsData, 'upstairsData' => $upstairsData, 'fanData' => $fanData, 'heatData' => $heatData, "eheatData" => $eheatData, "timeData" => $this->timeDataArray($profile), "futureEvents" => $this->getUpcoming5Events($profile));
+        $data = array('downstairsData' => $downstairsData, 'upstairsData' => $upstairsData, 'fanData' => $fanData, 'heatData' => $heatData, "eheatData" => $eheatData, "timeData" => $this->timeDataArray($profile), "futureEvents" => $this->getUpcoming5Events($profile), "isUserLoggedIn" => $this->isUserLoggedIn());
         $data = json_encode($data);
         return $data;
 
 
     }
 
+    /**
+     * @return mixed
+     */
+    public function isUserLoggedIn() {
+        return $_SESSION['logged_in']; // will return 1 if user is logged in.
+    }
+
     function timeDataArray($profile) {
 
+        date_default_timezone_set("America/Chicago");
+
+        $myfile = NULL;
+        $myfile = fopen("error2.log", "w") or die("file not open");
 
         $db = new MyDB2($profile);
 
@@ -90,11 +102,19 @@ class DataProcessor
         $endTime = 0;
         $user = "";
 
+        fwrite($myfile, "\n");
+        fwrite($myfile, "The value is index :" + $index);
+
         // find the first time block that is in the future   needs improvement 30-Dec-2017 Ulrich Roedder //
         for ($x = 0; $x < $index; $x++) {
 
+            fwrite($myfile, "\n");
+            fwrite($myfile, "The value is end: " . $data[$x][3]);
+
+            fwrite($myfile, "Time ::: " . time());
             if ($data[$x][3] > time()) {
 
+                //fwrite($myfile, " In loop ");
                 $timestamp = $data[$x][0];
                 $user = $data[$x][1];
                 $startTime = $data[$x][2];
@@ -125,11 +145,13 @@ class DataProcessor
     function getUpcoming5Events($profile) {
         $db = new MyDB2($profile);
         $data = [];
-        $current_date_time = time();
+        //$current_date_time = time();
+        $date=date_create();
+        $current_date_time = date_timestamp_get($date);
+
         $result = $db->query("SELECT * FROM time WHERE time.start > $current_date_time ORDER BY start ASC LIMIT 5 OFFSET 1");
         while ($vale = $result->fetchArray()) {
-            // array_push($data, $vale);
-            // $vale = date("d F Y H:i:s", $vale);
+
             $data[] = $vale;
         }
 

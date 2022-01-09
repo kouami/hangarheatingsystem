@@ -19,6 +19,11 @@ include 'profile.php';
     <script src="js/jQuery.switchButton.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/jquery.timepicker.min-1.3.5.js"></script>
+    <script>
+        var isLoggedIn = null;
+        isLoggedIn = "<?php  echo $_SESSION['logged_in']; ?>";
+
+    </script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
@@ -68,6 +73,8 @@ include 'profile.php';
             google.charts.setOnLoadCallback(drawLineGraphs);
             drawLineGraphs();
             setInterval(drawLineGraphs, 360000); //redraw every 6 minutes without refreshing the page
+            //setInterval(drawLineGraphs, 5000); // For debugging purpose only
+            displayFutureEvents();
             display();
             processLogin();
         });
@@ -229,10 +236,13 @@ include 'profile.php';
                 <button type="button" name="login" id="login" class="btn btn-primary btn-lg" data-toggle="modal"
                         data-target="#loginModal">Login
                 </button>
-                <button type="button" name="delete" id="delete" class="btn btn-secondary btn-lg"
-                        onClick="deleteCurrentEvent()">
-                    Delete
-                </button>
+                <?php
+                 if ($_SESSION['logged_in'] == 1) {
+                    echo '<button type = "button" name = "delete" id = "delete" class="btn btn-secondary btn-lg" onClick = "deleteCurrentEvent()"> Delete</button><br/>';
+                    echo '<a href="settings.php" class="badge rounded-pill bg-danger">Set Events</a>';
+                     echo  '<div><br><a href="logout.php" class="btn btn-info btn-md"><span class="glyphicon glyphicon-log-out"></span> Log out</a></div>';
+                 }
+                ?>
             </div>
 
         </div>
@@ -300,6 +310,7 @@ include 'profile.php';
     <!-- End Login Modal -->
 
     <!--</div> --> <!-- end of second row -->
+    <br/>
     <div class="text-light fst-normal badge bg-secondary">
         <?php
         $t = time();

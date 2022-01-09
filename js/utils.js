@@ -67,10 +67,32 @@ function drawLineGraphs() {
             $("#endTime").html(data.timeData.endTime);
             $("#user").html(data.timeData.user);
             $("#delete").attr("name", data.timeData.timestamp);
+            //$("#delete").hide();
 
+
+        },
+        error: function (data) {
+            alert(data.responseText);
+        }
+    });
+
+}
+
+function displayFutureEvents() {
+    $.ajax({
+        url: "DataProcessor.php",
+        async: false,
+        type: "POST",
+        success: function (data, status, xhr) {
+
+            data = $.parseJSON(data);
             const futureEventData = data.futureEvents;
+            const isUserLoggedIn = JSON.parse(data.isUserLoggedIn);
+
+            //alert(isUserLoggedIn);
 
             if(futureEventData.length > 0) {
+
                 $("#futureEvents").append("<button type=\"button\" data-bs-toggle=\"collapse\" class=\"list-group-item list-group-item-action active bg-success\" data-bs-target=\"#fe\">\n" +
                     "<div class=\"d-flex w-100 justify-content-between\">\n" +
                     "<h5 class=\"mb-1\">Upcoming Future Events</h5>\n" +
@@ -81,25 +103,32 @@ function drawLineGraphs() {
 
                 for (let i = 0; i < futureEventData.length; i++) {
 
-                    $("#fe").append("<button type=\"button\" class=\"list-group-item list-group-item-action\">\n" +
-                        "    <div class=\"d-flex w-100 justify-content-between\">\n" +
-                        "        <h5 class=\"mb-1\">Set By: " + futureEventData[i][1] + "</h5>\n" +
-                        "            <small class=\"text-muted\">" + "Created on " + timeConverter(futureEventData[i][0])  + "</small>\n" +
-                        "    </div>\n" +
-                        "    <h5 class=\"mb-1\">Start Time: " + futureEventData[i][2] + "</h5>\n" +
-                        "    <h5 class=\"mb-1\">End Time: " + futureEventData[i][3] + "</h5>\n" +
-                        "    <a href=\"#\" id=\"" + "events" + i  + "\" type=\"button\" name=\"" + futureEventData[i][0]  + "\" class=\"btn btn-outline-primary\" onClick=\"deleteEvent(this.name)\">Delete</a>\n" +
-                        "</button>");
+                    if(isUserLoggedIn == "1") {
+
+                        $("#fe").append("<button type=\"button\" class=\"list-group-item list-group-item-action\">\n" +
+                            "    <div class=\"d-flex w-100 justify-content-between\">\n" +
+                            "        <h5 class=\"mb-1\">Set By: " + futureEventData[i][1] + "</h5>\n" +
+                            "            <small class=\"text-muted\">" + "Created on " + timeConverter(futureEventData[i][0]) + "</small>\n" +
+                            "    </div>\n" +
+                            "    <h5 class=\"mb-1\">Start Time: " + futureEventData[i][2] + "</h5>\n" +
+                            "    <h5 class=\"mb-1\">End Time: " + futureEventData[i][3] + "</h5>\n" +
+                            "     <a href=\"#\" id=\"" + "events" + i + "\" type=\"button\" name=\"" + futureEventData[i][0] + "\" class=\"btn btn-outline-primary\" onClick=\"deleteEvent(this.name)\">Delete</a>\n" +
+                            "</button>");
+                    } else {
+
+                        $("#fe").append("<button type=\"button\" class=\"list-group-item list-group-item-action\">\n" +
+                            "    <div class=\"d-flex w-100 justify-content-between\">\n" +
+                            "        <h5 class=\"mb-1\">Set By: " + futureEventData[i][1] + "</h5>\n" +
+                            "            <small class=\"text-muted\">" + "Created on " + timeConverter(futureEventData[i][0]) + "</small>\n" +
+                            "    </div>\n" +
+                            "    <h5 class=\"mb-1\">Start Time: " + futureEventData[i][2] + "</h5>\n" +
+                            "    <h5 class=\"mb-1\">End Time: " + futureEventData[i][3] + "</h5>\n" +
+                            "</button>");
+                    }
                 }
             }
-
-
-        },
-        error: function (data) {
-            alert(data.responseText);
         }
     });
-
 }
 
 function deleteEvent(timestamp) {
@@ -191,7 +220,8 @@ function processLogin() {
                     } else {
                         $('#loginModal').hide();
 
-                        setTimeout('window.location.href = "settings.php";', 1000);
+                        //setTimeout('window.location.href = "settings.php";', 1000);
+                        setTimeout('window.location.href = "index.php";', 1000);
                     }
                 }
             });
