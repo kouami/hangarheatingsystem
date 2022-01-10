@@ -233,14 +233,14 @@ include 'profile.php';
                         <strong>Requested by:</strong> <span id="user" class="label label-primary"><b></b></span>
                     </div>
                 </h5>
-                <button type="button" name="login" id="login" class="btn btn-primary btn-lg" data-toggle="modal"
+                <button type="button" name="login" id="login" class="btn btn-primary btn-lg border border-dark" data-toggle="modal"
                         data-target="#loginModal">Login
                 </button>
                 <?php
                  if ($_SESSION['logged_in'] == 1) {
-                    echo '<button type = "button" name = "delete" id = "delete" class="btn btn-secondary btn-lg" onClick = "deleteCurrentEvent()"> Delete</button><br/>';
-                    echo '<a href="settings.php" class="badge rounded-pill bg-danger">Set Events</a>';
-                     echo  '<div><br><a href="logout.php" class="btn btn-info btn-md"><span class="glyphicon glyphicon-log-out"></span> Log out</a></div>';
+                    echo '<button type = "button" name = "delete" id = "delete" class="btn btn-secondary btn-lg border border-dark" onClick = "deleteCurrentEvent()"> Delete</button><br/>';
+                    echo '<a href="settings.php" class="badge bg-danger border border-dark">Set Events</a>';
+                     echo  '<div><br><a href="logout.php" class="btn btn-info btn-md border border-dark"><span class="glyphicon glyphicon-log-out"></span> Log out</a></div>';
                  }
                 ?>
             </div>

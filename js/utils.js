@@ -65,9 +65,11 @@ function drawLineGraphs() {
             $("#endTime").html(data.timeData.endTime);
             $("#user").html(data.timeData.user);
             $("#delete").attr("name", data.timeData.timestamp);
-            //$("#delete").hide();
 
-
+            if("nobody" == data.timeData.user.trim()) {
+                //$('#delete').prop('disabled', true);
+                $('#delete').hide()
+            }
         },
         error: function (data) {
             alert(data.responseText);
@@ -87,13 +89,11 @@ function displayFutureEvents() {
             const futureEventData = data.futureEvents;
             const isUserLoggedIn = JSON.parse(data.isUserLoggedIn);
 
-            //alert(isUserLoggedIn);
-
             if(futureEventData.length > 0) {
 
                 $("#futureEvents").append("<button type=\"button\" data-bs-toggle=\"collapse\" class=\"list-group-item list-group-item-action active bg-success\" data-bs-target=\"#fe\">\n" +
                     "<div class=\"d-flex w-100 justify-content-between\">\n" +
-                    "<h5 class=\"mb-1\">Upcoming Future Events</h5>\n" +
+                    "<h5 class=\"mb-1\">Upcoming Future Events<span class=\"position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger\">" + futureEventData.length + "</span></h5>\n" +
                     "\n" +
                     "</div>\n" +
                     "<p class=\"mb-1\">Click here to see future upcoming events.</p>\n" +
