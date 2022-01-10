@@ -238,9 +238,9 @@ include 'profile.php';
                 </button>
                 <?php
                  if ($_SESSION['logged_in'] == 1) {
-                    echo '<button type = "button" name = "delete" id = "delete" class="btn btn-secondary btn-lg border border-dark" onClick = "deleteCurrentEvent()"> Delete</button><br/>';
-                    echo '<a href="settings.php" class="badge bg-danger border border-dark">Set Events</a>';
-                     echo  '<div><br><a href="logout.php" class="btn btn-info btn-md border border-dark"><span class="glyphicon glyphicon-log-out"></span> Log out</a></div>';
+                    echo '<button type = "button" name = "delete" id = "delete" class="btn btn-secondary btn-lg border border-dark" onClick = "deleteCurrentEvent()"> Delete</button>';
+                    echo '<a href="settings.php" class="btn btn-danger btn-lg border border-dark" role="button" >Set Events</a>';
+                    echo  '<div><br><a href="logout.php" class="btn btn-info btn-md border border-dark"><span class="glyphicon glyphicon-log-out"></span> Log out</a></div>';
                  }
                 ?>
             </div>
