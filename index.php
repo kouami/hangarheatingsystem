@@ -325,30 +325,30 @@ include 'profile.php';
     <br/>
 </div> <!-- class container -->
 <!-- Current event modal deletion -->
-<div class="modal fade" id="confirmBox" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade rounded" id="confirmBox" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-sm modal-notify modal-success" role="document">
         <!--Content-->
         <div class="modal-content text-center">
             <!--Header-->
-            <div class="modal-header d-flex justify-content-center">
+            <div class="modal-header d-flex justify-content-center bg-success p-2 text-dark bg-opacity-10">
                 <p class="heading">Confirm Deletion</p>
             </div>
             <!--Body-->
             <div class="modal-body">
-                <p>Are you sure you want to delete this current event?</p>
+                <p><b>Are you sure you want to delete this current event?</b></p>
             </div>
             <!--Footer-->
-            <div class="modal-footer flex-center">
-                <a href="" class="btn  btn-outline-success" id="btnYes">Yes</a>
-                <a type="button" class="btn  btn-success waves-effect" data-dismiss="modal" id="btnNo">No</a>
+            <div class="modal-footer flex-center bg-success p-2 text-dark bg-opacity-10">
+                <a href="" class="btn  btn-lg border border-dark btn-outline-success" id="btnYes">Yes</a>
+                <a type="button" class="btn  btn-lg border border-dark btn-success waves-effect" data-dismiss="modal" id="btnNo">No</a>
             </div>
         </div>
         <!--/.Content-->
     </div>
 </div>
 
-<div class="modal fade" id="confirmBoxCurrent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade rounded" id="confirmBoxCurrent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-sm modal-notify modal-success" role="document">
         <!--Content-->
@@ -359,12 +359,12 @@ include 'profile.php';
             </div>
             <!--Body-->
             <div class="modal-body">
-                <p>Are you sure you want to delete this event?</p>
+                <p><b>Are you sure you want to delete this event?</b></p>
             </div>
             <!--Footer-->
             <div class="modal-footer flex-center">
-                <a href="" class="btn  btn-outline-success" id="btnY">Yes</a>
-                <a type="button" class="btn  btn-success waves-effect" data-dismiss="modal" id="btnN">No</a>
+                <a href="" class="btn  btn-lg border border-dark btn-outline-success" id="btnY">Yes</a>
+                <a type="button" class="btn  btn-lg border border-dark btn-success waves-effect" data-dismiss="modal" id="btnN">No</a>
             </div>
         </div>
         <!--/.Content-->
