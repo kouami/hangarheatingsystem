@@ -123,10 +123,6 @@ include 'profile.php';
 
         <div class="container-fluid py-5 bg-primary rounded-3 border">
             <h3 class="display-6 fw-bold text-light">MN 130th Hangar Heater control system</h3>
-            <p class="col-md-8 fs-4 text-light">
-                This website displays temperature, humidity data as well as allows authorized
-                personnel to set the date and time for preheating a specific room.
-            </p>
         </div>
 
     </div>
