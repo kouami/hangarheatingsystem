@@ -327,7 +327,7 @@ include 'profile.php';
 <!-- Current event modal deletion -->
 <div class="modal fade rounded" id="confirmBox" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-notify modal-success" role="document">
+    <div class="modal-dialog modal-sm modal-notify modal-dialog-centered modal-success" role="document">
         <!--Content-->
         <div class="modal-content text-center">
             <!--Header-->
@@ -350,7 +350,7 @@ include 'profile.php';
 
 <div class="modal fade rounded" id="confirmBoxCurrent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-notify modal-success" role="document">
+    <div class="modal-dialog modal-sm modal-notify modal-dialog-centered modal-success" role="document">
         <!--Content-->
         <div class="modal-content text-center">
             <!--Header-->
