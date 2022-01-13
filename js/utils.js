@@ -66,7 +66,7 @@ function drawLineGraphs() {
             $("#user").html(data.timeData.user);
             $("#delete").attr("name", data.timeData.timestamp);
 
-            if("nobody" == data.timeData.user.trim()) {
+            if ("nobody" == data.timeData.user.trim()) {
                 //$('#delete').prop('disabled', true);
                 $('#delete').hide()
             }
@@ -89,7 +89,7 @@ function displayFutureEvents() {
             const futureEventData = data.futureEvents;
             const isUserLoggedIn = JSON.parse(data.isUserLoggedIn);
 
-            if(futureEventData.length > 0) {
+            if (futureEventData.length > 0) {
 
                 $("#futureEvents").append("<button type=\"button\" data-bs-toggle=\"collapse\" class=\"list-group-item list-group-item-action active bg-success\" data-bs-target=\"#fe\">\n" +
                     "<div class=\"d-flex w-100 justify-content-between\">\n" +
@@ -101,7 +101,7 @@ function displayFutureEvents() {
 
                 for (let i = 0; i < futureEventData.length; i++) {
 
-                    if(isUserLoggedIn == "1") {
+                    if (isUserLoggedIn == "1") {
 
                         $("#fe").append("<button type=\"button\" class=\"list-group-item list-group-item-action\">\n" +
                             "    <div class=\"d-flex w-100 justify-content-between\">\n" +
@@ -110,7 +110,7 @@ function displayFutureEvents() {
                             "    </div>\n" +
                             "    <h5 class=\"mb-1\">Start Time: " + futureEventData[i][2] + "</h5>\n" +
                             "    <h5 class=\"mb-1\">End Time: " + futureEventData[i][3] + "</h5>\n" +
-                            "     <a href=\"#\" id=\"" + "events" + i + "\" type=\"button\" name=\"" + futureEventData[i][0] + "\" class=\"btn btn-outline-primary\" onClick=\"deleteEvent(this.name)\">Delete</a>\n" +
+                            "     <a href=\"#\" id=\"" + "events" + i + "\" type=\"button\" data-toggle=\"modal\" data-target=\"#confirmBoxCurrent\"name=\"" + futureEventData[i][0] + "\" class=\"btn btn-outline-primary\" onClick=\"deleteEvent(this.name)\">Delete</a>\n" +
                             "</button>");
                     } else {
 
@@ -131,26 +131,42 @@ function displayFutureEvents() {
 
 function deleteEvent(timestamp) {
 
-    $.ajax({
-        url: "deleteEvents.php",
-        method: "POST",
-        data: {timestamp:timestamp},
-        success: function () {
-            location.reload();
-        }
+    $('#btnY').on('click', function (e) {
+        $.ajax({
+            url: "deleteEvents.php",
+            method: "POST",
+            data: {timestamp: timestamp},
+            success: function () {
+                location.reload();
+            }
+        });
     });
+
+    $('#btnN').on('click', function (e) {
+        $('#confirmBoxCurrent').hide();
+        location.reload();
+    });
+
 }
 
 function deleteCurrentEvent() {
 
-    $.ajax({
-        url: "dateAndTimeSetter.php",
-        method: "POST",
-        data: {delete:$("#delete").attr("name")},
-        success: function (data) {
-            location.reload();
-        }
+    $('#btnYes').on('click', function (e) {
+        $.ajax({
+            url: "dateAndTimeSetter.php",
+            method: "POST",
+            data: {delete: $("#delete").attr("name")},
+            success: function (data) {
+                location.reload();
+            }
+        })
     });
+
+    $('#btnNo').on('click', function (e) {
+        $('#confirmBox').hide();
+        location.reload();
+    });
+
 }
 
 

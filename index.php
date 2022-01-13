@@ -69,6 +69,7 @@ include 'profile.php';
 
     <script type="text/javascript">
         $(document).ready(function () {
+            //$('#confirmBox').hide();
             google.charts.load('current', {packages: ['corechart', 'line']});
             google.charts.setOnLoadCallback(drawLineGraphs);
             drawLineGraphs();
@@ -182,7 +183,7 @@ include 'profile.php';
 
             <?php
             $myfile;
-            if($profile == "PROD") {
+            if ($profile == "PROD") {
                 $myfile = fopen("/home/pi/temp/data.txt", "r") or die("Unable to open file!");
             } else {
                 $myfile = fopen("data.txt", "r") or die("Unable to open file!"); //for testing purpose
@@ -233,15 +234,17 @@ include 'profile.php';
                         <strong>Requested by:</strong> <span id="user" class="label label-primary"><b></b></span>
                     </div>
                 </h5>
-                <button type="button" name="login" id="login" class="btn btn-primary btn-lg border border-dark" data-toggle="modal"
+                <button type="button" name="login" id="login" class="btn btn-primary btn-lg border border-dark"
+                        data-toggle="modal"
                         data-target="#loginModal">Login
                 </button>
                 <?php
-                 if ($_SESSION['logged_in'] == 1) {
-                    echo '<button type = "button" name = "delete" id = "delete" class="btn btn-secondary btn-lg border border-dark" onClick = "deleteCurrentEvent()"> Delete</button>';
+                if ($_SESSION['logged_in'] == 1) {
+                    echo '<button type = "button" name = "delete" data-toggle="modal"
+                        data-target="#confirmBox" id = "delete" class="btn btn-secondary btn-lg border border-dark" onClick = "deleteCurrentEvent()"> Delete</button>';
                     echo ' <a href="settings.php" class="btn btn-danger btn-lg border border-dark" role="button" >Set Events</a>';
-                    echo  '<div><br><a href="logout.php" class="btn btn-info btn-sm border border-dark"><span class="glyphicon glyphicon-log-out"></span> Log out</a></div>';
-                 }
+                    echo '<div><br><a href="logout.php" class="btn btn-info btn-sm border border-dark"><span class="glyphicon glyphicon-log-out"></span> Log out</a></div>';
+                }
                 ?>
             </div>
 
@@ -309,6 +312,8 @@ include 'profile.php';
 
     <!-- End Login Modal -->
 
+
+
     <!--</div> --> <!-- end of second row -->
     <br/>
     <div class="text-light fst-normal badge bg-secondary">
@@ -323,6 +328,52 @@ include 'profile.php';
     <br/>
     <br/>
 </div> <!-- class container -->
+<!-- Current event modal deletion -->
+<div class="modal fade" id="confirmBox" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-notify modal-success" role="document">
+        <!--Content-->
+        <div class="modal-content text-center">
+            <!--Header-->
+            <div class="modal-header d-flex justify-content-center">
+                <p class="heading">Confirm Deletion</p>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <p>Are you sure you want to delete this current event?</p>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer flex-center">
+                <a href="" class="btn  btn-outline-success" id="btnYes">Yes</a>
+                <a type="button" class="btn  btn-success waves-effect" data-dismiss="modal" id="btnNo">No</a>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+
+<div class="modal fade" id="confirmBoxCurrent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-notify modal-success" role="document">
+        <!--Content-->
+        <div class="modal-content text-center">
+            <!--Header-->
+            <div class="modal-header d-flex justify-content-center">
+                <p class="heading">Event Deletion Confirmation</p>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <p>Are you sure you want to delete this event?</p>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer flex-center">
+                <a href="" class="btn  btn-outline-success" id="btnY">Yes</a>
+                <a type="button" class="btn  btn-success waves-effect" data-dismiss="modal" id="btnN">No</a>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
 </body>
 </html>
 
